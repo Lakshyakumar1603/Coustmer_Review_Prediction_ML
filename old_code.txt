@@ -1,0 +1,85 @@
+from flask import Flask , render_template , url_for ,request
+import joblib 
+import mysql.connector
+model = joblib.load("logistic_regression.lb")
+
+
+
+
+print("Sucessfully connected")
+
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/application')
+def application():
+    return render_template('user_data.html') 
+
+@app.route('/userdata',methods=['GET','POST'])
+def userdata():
+    if request.method == 'POST':
+        gender = int(request.form['gender'])  
+        customer_type = int(request.form['customer_type'])
+        type_of_travel = int(request.form['typeoftravel'])
+        flight_class = int(request.form['flight_class'])
+        age = int(request.form['age'])
+        flight_distance = int(request.form['flight_distance'])
+        flght_enterment = int(request.form['flght_enterment'])
+        bagage_handling = int(request.form['bagage_handling'])
+        cleaning = int(request.form['cleaning'])
+        deprtr_delay = int(request.form['deprtr_delay'])
+        arival_delay = int(request.form['arival_delay'])
+
+        conn=mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="customer"    
+        )
+        cursor=conn.cursor(buffered=True)
+
+        Class_Eco =0
+        Class_Eco_Plus=0
+        if flight_class == "0":
+            # economy class 
+            Class_Eco = 1 
+            Class_Eco_Plus = 0 
+        
+        elif flight_class == "1":
+            #economy plus 
+            Class_Eco = 0 
+            Class_Eco_Plus = 1 
+        else:
+            # bussiness 
+            Class_Eco = 0 
+            Class_Eco_Plus = 0  
+
+        unseen_data_points = [[gender,customer_type,type_of_travel,
+                        Class_Eco, Class_Eco_Plus,age,flight_distance,flght_enterment,
+                        bagage_handling,cleaning,deprtr_delay,arival_delay]]
+
+        output = model.predict(unseen_data_points)[0]
+        if output  == 0:
+            return f"passer is not satisfied"
+        else:
+            print("Passenger is satisfied")
+    l=[gender,customer_type,type_of_travel, Class_Eco, Class_Eco_Plus,age,flight_distance,flght_enterment,
+                        bagage_handling,cleaning,deprtr_delay,arival_delay,output]
+    cursor.execute("""
+        INSERT INTO data (male,ct,totpt,ce,cep,age,fd,ie,bh,clean,ddim,adim,p)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        )
+        """, (l[0], l[1],l[2],l[3],l[4],l[5],l[6],l[7],l[8],l[9],l[10],l[11],l[12]))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    print("Succesffuly Transfered")
+    return output
+if __name__ == "__main__":
+    app.run(debug=True)
+    

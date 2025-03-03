@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .card h2 {
+            margin: 10px 0;
+        }
+
+        .card i {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .card .count {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav {
+            margin-bottom: 30px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/application">Application</a>
+            <a href="/userdata">User Data</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+
+        <h1>Dashboard</h1>
+        <p style="text-align: center;">View insights about passenger satisfaction</p>
+
+        <div class="card">
+            <h2>User Input Details</h2>
+            <p><strong>Gender:</strong> {{ gender }}</p>
+            <p><strong>Customer Type:</strong> {{ customer_type }}</p>
+            <p><strong>Type of Travel:</strong> {{ type_of_travel }}</p>
+            <p><strong>Flight Class:</strong> {{ flight_class }}</p>
+            <p><strong>Age:</strong> {{ age }}</p>
+            <p><strong>Flight Distance:</strong> {{ flight_distance }}</p>
+            <p><strong>Flight Entertainment:</strong> {{ flght_enterment }}</p>
+            <p><strong>Bagage Handling:</strong> {{ bagage_handling }}</p>
+            <p><strong>Cleaning:</strong> {{ cleaning }}</p>
+            <p><strong>Departure Delay:</strong> {{ deprtr_delay }}</p>
+            <p><strong>Arrival Delay:</strong> {{ arival_delay }}</p>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-smile"></i>
+            <h2>Satisfaction Result</h2>
+            <p class="count">{{ 'Satisfied' if output == 1 else 'Unsatisfied' }}</p>
+        </div>
+    </div>
+</body>
+</html>

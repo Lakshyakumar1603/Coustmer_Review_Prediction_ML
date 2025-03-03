@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colorful Flight Survey Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #f8f9fa, #dfe6e9);
+      font-family: 'Poppins', sans-serif;
+    }
+    .form-container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-top: 50px;
+    }
+    h2 {
+      color: #2d3436;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .form-label {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .form-select, .form-control {
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      transition: all 0.3s ease;
+    }
+    .form-select:focus, .form-control:focus {
+      border-color: #6c5ce7;
+      box-shadow: 0 0 5px rgba(108, 92, 231, 0.5);
+    }
+    .btn-primary {
+      background: linear-gradient(to right, #6c5ce7, #00cec9);
+      border: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(to right, #00cec9, #6c5ce7);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2 class="text-center mb-4">🌟 Colorful Flight Survey Form 🌟</h2>
+      <form action="{{ url_for('userdata') }}" method="post">
+        <!-- Gender -->
+        <div class="mb-4">
+          <label class="form-label">Gender</label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="male" value="1">
+            <label class="form-check-label" for="male">Male</label>
+          </div>
+
+
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="female" value="0">
+            <label class="form-check-label" for="female">Female</label>
+          </div>
+        </div>
+
+        <!-- Customer Type -->
+        <div class="mb-4">
+          <label for="customerType" class="form-label">Customer Type</label>
+          <select name="customer_type" class="form-select" id="customerType" required>
+            <option value="">Select Customer Type</option>
+            <option value="1">Disloyal Customer</option>
+            <option value="0">Loyal Customer</option>
+          </select>
+        </div>
+
+        <!-- Type of Travel -->
+        <div class="mb-4">
+          <label for="typeOfTravel" class="form-label">Type of Travel</label>
+          <select class="form-select" name="typeoftravel" id="typeOfTravel" required>
+            <option value="">Select Type of Travel</option>
+            <option value="1">Personal Travel</option>
+            <option value="0">Business Travel</option>
+          </select>
+        </div>
+
+        <!-- Class -->
+        <div class="mb-4">
+          <label for="travelClass" class="form-label">Class</label>
+          <select name="flight_class" class="form-select" id="travelClass" required>
+            <option value="">Select Class</option>
+            <option value="0">Eco</option>
+            <option value="1">Eco Plus</option>
+            <option value="Business">Business</option>
+          </select>
+        </div>
+    <!-- 0   1
+         1   0 
+         0   0  -->
+
+
+        <!-- Age -->
+        <div class="mb-4">
+          <label for="age" class="form-label">Age</label>
+          <input type="number" name="age" class="form-control" id="age" placeholder="Enter your age" required>
+        </div>
+
+        <!-- Flight Distance -->
+        <div class="mb-4">
+          <label for="flightDistance" class="form-label">Flight Distance</label>
+          <input type="number" name="flight_distance" class="form-control" id="flightDistance" placeholder="Enter flight distance (in km)" required>
+        </div>
+
+        <!-- Inflight Entertainment -->
+        <div class="mb-4">
+          <label for="inflightEntertainment" class="form-label">Inflight Entertainment</label>
+          <select name="flght_enterment" class="form-select" id="inflightEntertainment" required>
+            <option value="">Rate the Inflight Entertainment</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+
+        <!-- Baggage Handling -->
+        <div class="mb-4">
+          <label for="baggageHandling" class="form-label">Baggage Handling</label>
+          <select name="bagage_handling" class="form-select" id="baggageHandling" required>
+            <option value="">Rate Baggage Handling</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+
+        <!-- Cleanliness -->
+        <div class="mb-4">
+          <label for="cleanliness" class="form-label">Cleanliness</label>
+          <select name="cleaning" class="form-select" id="cleanliness" required>
+            <option value="">Rate Cleanliness</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+
+        <!-- Departure Delay in Minutes -->
+        <div class="mb-4">
+          <label for="departureDelay" class="form-label">Departure Delay in Minutes</label>
+          <input type="number" name="deprtr_delay" class="form-control" id="departureDelay" placeholder="Enter departure delay in minutes" required>
+        </div>
+
+        <!-- Arrival Delay in Minutes -->
+        <div class="mb-4">
+          <label for="arrivalDelay" class="form-label">Arrival Delay in Minutes</label>
+          <input type="number" name="arival_delay" class="form-control" id="arrivalDelay" placeholder="Enter arrival delay in minutes" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
